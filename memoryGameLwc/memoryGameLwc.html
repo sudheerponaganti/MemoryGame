@@ -1,0 +1,51 @@
+<template>
+    <div class="container">
+        <lightning-card>
+            <div class="slds-var-m-around_medium"> 
+                <div class="slds-var-m-around_large"> 
+                    <section class=" slds-var-m-bottom_medium score-panel">
+                        <span class="moves">{moves} Move(s)</span>
+                        <div class=" timer">
+                          {totalTime}                        
+                        </div>
+                        <div class="slds-float_right repeat">
+                          <i class="fa fa-repeat" onclick={suffleresetHandler}></i>
+                        </div>
+                    </section>
+                     <section class="game-panel">
+                        <div class="slds-grid slds-wrap gridContainer">
+                                <template for:each={cards} for:item="card">
+                                    <div class="slds-col slds-size_3-of-12 cardContainer" key={card.id} >
+                                        <li class={card.listClass}  type={card.type} onclick={displayCard}>
+                                               <i class={card.icon}></i>
+                                        </li>
+                                    </div>
+                                </template>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </lightning-card>
+        <template if:true={showCongratulations}>
+            <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                  <div class="slds-modal__header">
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                        Congratulations ! You Completed the Game !!
+                    </h1>
+                  </div>
+                  <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                    <p>You Completed the Game with <strong>{moves}</strong> Moves  in <strong>{totalTime}</strong></p>
+                    <template for:each={gameRating} for:item="rating">
+                        <i class="fa fa-star" key={rating}></i>
+                    </template>
+                  </div>
+                  <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_brand" onclick={suffleresetHandler}>Play Again</button>
+                  </footer>
+                </div>
+              </section>
+              <div class="slds-backdrop slds-backdrop_open"></div>
+          </template>
+    </div>
+</template>
